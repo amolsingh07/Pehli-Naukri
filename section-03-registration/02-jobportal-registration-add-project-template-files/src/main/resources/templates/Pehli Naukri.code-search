@@ -1,0 +1,23 @@
+# Query: Pehli Naukri
+
+10 results - 5 files
+
+section-03-registration/00-starter-files/registration-resource/index.html:
+  15:             Pehli Naukri
+
+section-03-registration/02-jobportal-registration-add-project-template-files/src/main/resources/templates/index.html:
+  15:             Pehli Naukri
+
+section-04-login-logout/02-job-portal-login-logout-custom-user-authentication-and-authorization/src/main/resources/templates/index.html:
+   5:     <title>Login Pehli Naukri</title>
+  15:             Pehli Naukri
+
+section-04-login-logout/04-job-portal-login-logout-security-and-dashboard/src/main/resources/templates/index.html:
+   5:     <title>Login Pehli Naukri</title>
+  15:             Pehli Naukri
+  53:     <label class="copy-right">Copyright © Pehli Naukri.com</label>
+
+section-05-recruiter-profile/03-update-dashboard-to-display-recruiter-profile-image/src/main/resources/templates/index.html:
+   5:     <title>Login Pehli Naukri</title>
+  15:             Pehli Naukri
+  53:     <label class="copy-right">Copyright © Pehli Naukri.com</label>
