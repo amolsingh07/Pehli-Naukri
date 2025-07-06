@@ -1,15 +1,14 @@
-# Use Java 22 runtime image
-FROM openjdk:22-jdk
-
-# Set working directory
+# Stage 1: Build the application
+FROM maven:3.9.6-eclipse-temurin-17 AS build
 WORKDIR /app
+COPY . .
+RUN mvn clean package -DskipTests
 
-# Copy project JAR (assuming you build it later)
-COPY target/*.jar app.jar
-
-# Expose port
+# Stage 2: Run the application
+FROM eclipse-temurin:17
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
-
-# Command to run app
 ENTRYPOINT ["java", "-jar", "app.jar"]
+
 
