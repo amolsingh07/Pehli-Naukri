@@ -6,13 +6,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.Collections;
 
 public class CustomUserDetails implements UserDetails {
 
-    private Users user;
+    private final Users user;
 
     public CustomUserDetails(Users user) {
         this.user = user;
@@ -20,11 +19,26 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+    
         UsersType usersType = user.getUserTypeId();
-        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(usersType.getUserTypeName()));
-        return authorities;
+    
+        if (usersType == null || usersType.getUserTypeName() == null) {
+            return Collections.singletonList(
+                    new SimpleGrantedAuthority("ROLE_USER")
+            );
+        }
+    
+        // Convert DB value → Spring Security role
+        // Recruiter   → ROLE_RECRUITER
+        // Job Seeker  → ROLE_JOB_SEEKER
+        String role = "ROLE_" +
+                usersType.getUserTypeName()
+                        .toUpperCase()
+                        .replace(" ", "_");
+    
+        return Collections.singletonList(new SimpleGrantedAuthority(role));
     }
+    
 
     @Override
     public String getPassword() {
@@ -53,6 +67,6 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return user.isActive(); // correct getter
     }
 }
