@@ -172,6 +172,10 @@ Temporary Items
 
 ### Maven ###
 target/
+application-local.properties
+.env
+.env.*
+photos/
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup

@@ -1,6 +1,10 @@
 # Maven build output
 target/
 **/target/
+.git/
+.env
+.env.*
+photos/
 
 # IDE files
 *.iml
@@ -16,4 +20,3 @@ target/
 
 # OS files
 .DS_Store
-

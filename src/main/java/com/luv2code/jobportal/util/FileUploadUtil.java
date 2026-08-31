@@ -13,15 +13,18 @@ public class FileUploadUtil {
 
     public static void saveFile(String uploadDir, String filename, MultipartFile multipartFile) throws IOException {
 
-        Path uploadPath = Paths.get(uploadDir);
+        Path storageRoot = Paths.get(System.getenv().getOrDefault("APP_STORAGE_PATH", "./photos"))
+                .toAbsolutePath().normalize();
+        Path uploadPath = storageRoot.resolve(uploadDir.replaceFirst("^photos/?", "")).normalize();
+        if (!uploadPath.startsWith(storageRoot)) {
+            throw new IOException("Invalid upload path");
+        }
         if (!Files.exists(uploadPath)) {
             Files.createDirectories(uploadPath);
         }
 
         try (InputStream inputStream = multipartFile.getInputStream();) {
-            Path path = uploadPath.resolve(filename);
-            System.out.println("FilePath " + path);
-            System.out.println("fileName " + filename);
+            Path path = uploadPath.resolve(Paths.get(filename).getFileName()).normalize();
             Files.copy(inputStream, path, StandardCopyOption.REPLACE_EXISTING);
         }
         catch (IOException ioe) {

@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -32,6 +31,7 @@ public class WebSecurityConfig {
             "/login",
             "/register/**",
             "/global-search/**",
+            "/health",
             "/css/**",
             "/js/**",
             "/images/**",
@@ -48,6 +48,8 @@ public class WebSecurityConfig {
                 .requestMatchers(PUBLIC_URLS).permitAll()
                 .requestMatchers("/recruiter/**").hasRole("RECRUITER")
                 .requestMatchers("/jobseeker/**").hasRole("JOB_SEEKER")
+                .requestMatchers("/dashboard/add", "/dashboard/addNew", "/dashboard/edit/**").hasRole("RECRUITER")
+                .requestMatchers("/job-details/apply/**", "/job-details/save/**", "/saved-jobs/**", "/job-seeker-profile/**").hasRole("JOB_SEEKER")
                 .anyRequest().authenticated()
         );
 
@@ -63,9 +65,6 @@ public class WebSecurityConfig {
                 .logoutSuccessUrl("/")
         );
 
-        http.csrf(csrf -> csrf.disable());
-        http.cors(Customizer.withDefaults());
-
         return http.build();
     }
 
@@ -77,4 +76,3 @@ public class WebSecurityConfig {
         return provider;
     }
 }
-

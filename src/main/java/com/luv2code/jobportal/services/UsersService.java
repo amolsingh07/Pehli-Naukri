@@ -177,5 +177,9 @@ public class UsersService {
     public Optional<Users> getUserByEmail(String email) {
         return usersRepository.findByEmail(email);
     }
-}
 
+    public Users findByEmail(String email) {
+        return usersRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    }
+}

@@ -57,12 +57,12 @@ public class JobPostActivityController {
     ) {
 
         model.addAttribute("partTime", Objects.equals(partTime, "Part-Time"));
-        model.addAttribute("fullTime", Objects.equals(partTime, "Full-Time"));
-        model.addAttribute("freelance", Objects.equals(partTime, "Freelance"));
+        model.addAttribute("fullTime", Objects.equals(fullTime, "Full-Time"));
+        model.addAttribute("freelance", Objects.equals(freelance, "Freelance"));
 
-        model.addAttribute("remoteOnly", Objects.equals(partTime, "Remote-Only"));
-        model.addAttribute("officeOnly", Objects.equals(partTime, "Office-Only"));
-        model.addAttribute("partialRemote", Objects.equals(partTime, "Partial-Remote"));
+        model.addAttribute("remoteOnly", Objects.equals(remoteOnly, "Remote-Only"));
+        model.addAttribute("officeOnly", Objects.equals(officeOnly, "Office-Only"));
+        model.addAttribute("partialRemote", Objects.equals(partialRemote, "Partial-Remote"));
 
         model.addAttribute("today", today);
         model.addAttribute("days7", days7);
@@ -260,7 +260,6 @@ public class JobPostActivityController {
         return "add-jobs";
     }
 }
-
 
 
 

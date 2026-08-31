@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: pehli-naukri
+    runtime: docker
+    plan: free
+    healthCheckPath: /health
+    autoDeployTrigger: commit
